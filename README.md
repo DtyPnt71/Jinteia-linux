@@ -442,18 +442,3 @@ This repository provides a Linux compatibility setup and is not an official Jint
 </details>
 
 ---
-
-## Release files
-
-A typical release should contain:
-
-```text
-Jinteia-Proton-0.1.tar.gz
-Jinteia-Proton-0.1.tar.gz.sha256
-```
-
-The README itself stays in the repository as:
-
-```text
-README.md
-```
