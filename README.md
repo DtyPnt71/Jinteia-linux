@@ -18,7 +18,7 @@ You need:
 
 - Lutris
 - The Jinteia game files
-- `Jinteia-Proton-0.1.run` from the **Releases** section
+- `Jinteia-Proton-0.1-installer.run` from the **Releases** section
 - Microsoft Edge WebView2 Runtime x64
 - One shared prefix for both the patcher and the client
 
@@ -42,13 +42,7 @@ Prefix: ~/Games/jinteia-prefix
 Go to the **Releases** section of this repository and download:
 
 ```text
-Jinteia-Proton-0.1.tar.gz
-```
-
-If a checksum file is provided, you can verify the download with:
-
-```bash
-sha256sum -c Jinteia-Proton-0.1.tar.gz.sha256
+Jinteia-Proton-0.1-installer.run
 ```
 
 ---
@@ -61,14 +55,14 @@ sha256sum -c Jinteia-Proton-0.1.tar.gz.sha256
 Open a terminal in the folder containing:
 
 ```text
-Jinteia-Proton-0.1.tar.gz
+Jinteia-Proton-0.1-installer.run
 ```
 
 Run:
 
 ```bash
 mkdir -p ~/.local/share/lutris/runners/wine
-tar -xzf Jinteia-Proton-0.1.tar.gz -C ~/.local/share/lutris/runners/wine
+tar -xzf Jinteia-Proton-0.1-installer.run -C ~/.local/share/lutris/runners/wine
 ```
 
 Afterwards, this directory should exist:
@@ -98,7 +92,7 @@ If Lutris was installed as a Flatpak, use:
 
 ```bash
 mkdir -p ~/.var/app/net.lutris.Lutris/data/lutris/runners/wine
-tar -xzf Jinteia-Proton-0.1.tar.gz -C ~/.var/app/net.lutris.Lutris/data/lutris/runners/wine
+tar -xzf Jinteia-Proton-0.1-installer.run -C ~/.var/app/net.lutris.Lutris/data/lutris/runners/wine
 ```
 
 Then fully restart Lutris.
