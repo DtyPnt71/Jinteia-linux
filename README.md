@@ -18,7 +18,7 @@ You need:
 
 - Lutris
 - The Jinteia game files
-- `Jinteia-Proton-0.1.tar.gz` from the **Releases** section
+- `Jinteia-Proton-0.1.run` from the **Releases** section
 - Microsoft Edge WebView2 Runtime x64
 - One shared prefix for both the patcher and the client
 
