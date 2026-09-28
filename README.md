@@ -188,6 +188,7 @@ Save the entry.
 The Jinteia patcher requires **Microsoft Edge WebView2 Runtime x64**.
 
 Download the current **Microsoft Edge WebView2 Evergreen Runtime x64** from Microsoft.
+https://go.microsoft.com/fwlink/p/?LinkId=2124703
 
 It must be installed into the same prefix used by the Jinteia Patcher:
 
