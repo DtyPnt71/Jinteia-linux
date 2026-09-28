@@ -5,7 +5,7 @@ Run **Nihor2 / Chronicles of Jinteia** on Linux with Lutris using a custom Proto
 > **Status:** Public Beta  
 > **Runner:** `Jinteia-Proton-0.1`  
 > **Base:** GE-Proton 11-7  
-> **Confirmed working:** CachyOS and Linux Mint 22.3 with Lutris + UMU  
+> **Confirmed working:** CachyOS, Linux Mint 22.3 with Lutris + UMU  
 > **Architecture:** x86_64
 
 This setup uses the **Jinteia Patcher** as the main entry point.  
