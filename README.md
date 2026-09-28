@@ -5,35 +5,27 @@ Run **Nihor2 / Chronicles of Jinteia** on Linux with Lutris using a custom Proto
 > **Status:** Public Beta  
 > **Runner:** `Jinteia-Proton-0.1`  
 > **Base:** GE-Proton 11-7  
-> **Tested:** CachyOS + Lutris + UMU  
-> **Other distributions:** Not yet fully verified
+> **Confirmed working:** CachyOS and Linux Mint 22.3 with Lutris + UMU  
+> **Architecture:** x86_64
 
-The goal of this project is to provide a simple Linux setup for both the **Jinteia Patcher** and the **Jinteia Client** using the same Proton runner and the same Wine/Proton prefix.
+This setup uses the **Jinteia Patcher** as the main entry point.  
+The patcher can be used both to **download/install the game** and to **launch an existing installation**.
 
 ---
 
-## Quick overview
+## Recommended setup
 
-You need:
-
-- Lutris
-- The Jinteia game files
-- `Jinteia-Proton-0.1-installer.run` from the **Releases** section
-- Microsoft Edge WebView2 Runtime x64
-- One shared prefix for both the patcher and the client
-
-Recommended shared prefix:
+For most users, only one Lutris entry is needed:
 
 ```text
-~/Games/jinteia-prefix
+Jinteia Patcher
+├── Runner: Jinteia-Proton-0.1
+└── Prefix: ~/Games/jinteia-prefix
 ```
 
-Both Lutris entries must use:
+The patcher can then handle the game itself.
 
-```text
-Runner: Jinteia-Proton-0.1
-Prefix: ~/Games/jinteia-prefix
-```
+If you already have the game files and want to launch the client directly from Lutris, you can optionally add a second entry later.
 
 ---
 
@@ -45,12 +37,22 @@ Go to the **Releases** section of this repository and download:
 Jinteia-Proton-0.1-installer.run
 ```
 
+If the release also contains:
+
+```text
+Jinteia-Proton-0.1-installer.run.sha256
+```
+
+place both files in the same folder and optionally verify the download with:
+
+```bash
+sha256sum -c Jinteia-Proton-0.1-installer.run.sha256
+```
+
 ---
 
 <details>
 <summary><strong>2. Install Jinteia-Proton</strong></summary>
-
-### Regular Lutris installation
 
 Open a terminal in the folder containing:
 
@@ -58,57 +60,56 @@ Open a terminal in the folder containing:
 Jinteia-Proton-0.1-installer.run
 ```
 
-Run:
+Make the installer executable:
 
 ```bash
-mkdir -p ~/.local/share/lutris/runners/wine
-tar -xzf Jinteia-Proton-0.1-installer.run -C ~/.local/share/lutris/runners/wine
+chmod +x Jinteia-Proton-0.1-installer.run
 ```
 
-Afterwards, this directory should exist:
+Then run it:
+
+```bash
+./Jinteia-Proton-0.1-installer.run
+```
+
+If your system does not allow launching it directly, you can also use:
+
+```bash
+bash Jinteia-Proton-0.1-installer.run
+```
+
+The installer automatically extracts and installs `Jinteia-Proton-0.1` into the appropriate Lutris runner directory.
+
+Typical locations are:
+
+**Regular Lutris:**
 
 ```text
 ~/.local/share/lutris/runners/wine/Jinteia-Proton-0.1/
 ```
 
-Verify it with:
-
-```bash
-ls ~/.local/share/lutris/runners/wine/Jinteia-Proton-0.1
-```
-
-You should see files/folders such as:
+**Flatpak Lutris:**
 
 ```text
-proton
-files/
+~/.var/app/net.lutris.Lutris/data/lutris/runners/wine/Jinteia-Proton-0.1/
 ```
 
-Then **fully close Lutris and start it again**.
+After the installer finishes:
 
-### Lutris installed as Flatpak
+1. Fully close Lutris
+2. Start Lutris again
+3. `Jinteia-Proton-0.1` should now be available as a Wine version
 
-If Lutris was installed as a Flatpak, use:
-
-```bash
-mkdir -p ~/.var/app/net.lutris.Lutris/data/lutris/runners/wine
-tar -xzf Jinteia-Proton-0.1-installer.run -C ~/.var/app/net.lutris.Lutris/data/lutris/runners/wine
-```
-
-Then fully restart Lutris.
-
-> Flatpak support is included in this guide, but it has not yet been tested as thoroughly as the regular Lutris installation.
+> The installer only installs the custom Proton runner. It does **not** install Jinteia itself or Microsoft Edge WebView2 Runtime.
 
 </details>
 
 ---
 
 <details>
-<summary><strong>3. Create the shared Wine/Proton prefix</strong></summary>
+<summary><strong>3. Set up the Wine/Proton prefix</strong></summary>
 
-The patcher and client must use the **same prefix**.
-
-Recommended:
+Recommended prefix:
 
 ```text
 ~/Games/jinteia-prefix
@@ -122,11 +123,13 @@ Which normally expands to:
 
 You do not need to create it manually. Lutris/Proton will create it when needed.
 
+If you later add a separate Jinteia Client entry, use this **same prefix** there as well.
+
 </details>
 
 ---
 
-<details>
+<details open>
 <summary><strong>4. Add the Jinteia Patcher to Lutris</strong></summary>
 
 In Lutris:
@@ -147,19 +150,19 @@ Wine
 
 ### Game options
 
-Executable:
+**Executable:**
 
 ```text
 /PATH/TO/JINTEIA/Nihor2-Patcher.exe
 ```
 
-Wine prefix:
+**Wine prefix:**
 
 ```text
 /home/YOUR-USERNAME/Games/jinteia-prefix
 ```
 
-Optional working directory:
+**Working directory:**
 
 ```text
 /PATH/TO/JINTEIA/
@@ -180,17 +183,85 @@ Save the entry.
 ---
 
 <details>
-<summary><strong>5. Add the Jinteia Client to Lutris</strong></summary>
+<summary><strong>5. Install Microsoft Edge WebView2 Runtime</strong></summary>
 
-Add another locally installed game.
+The Jinteia patcher requires **Microsoft Edge WebView2 Runtime x64**.
 
-Name:
+Download the current **Microsoft Edge WebView2 Evergreen Runtime x64** from Microsoft.
+
+It must be installed into the same prefix used by the Jinteia Patcher:
+
+```text
+~/Games/jinteia-prefix
+```
+
+### Recommended method
+
+1. Select **Jinteia Patcher** in Lutris
+2. Open the Wine menu for that game
+3. Choose **Run EXE inside Wine prefix**
+4. Select the WebView2 x64 installer
+5. Complete the installation
+
+If Wine asks to install **Wine Mono**, choose:
+
+```text
+Install
+```
+
+Do **not** cancel the Mono installation.
+
+After WebView2 has been installed, fully restart Lutris.
+
+</details>
+
+---
+
+## 6. Install or launch Jinteia
+
+Start:
+
+```text
+Jinteia Patcher
+```
+
+The first launch may take longer because Proton can initialize:
+
+- the prefix
+- DXVK
+- shader caches
+- WebView2-related components
+
+If the patcher closes on the very first launch, wait for the process to finish and try once more.
+
+### If you do not have the game files yet
+
+Use the Jinteia Patcher to download/install the game.
+
+After the download is complete, continue launching Jinteia through the patcher.
+
+### If you already have the game files
+
+Place/configure the patcher together with your existing Jinteia installation and launch it using the setup above.
+
+If the patcher detects and launches the existing game correctly, no second Lutris entry is required.
+
+---
+
+<details>
+<summary><strong>Optional: Add the Jinteia Client directly to Lutris</strong></summary>
+
+This step is **not required** if you are happy launching the game through the patcher.
+
+Add a second locally installed game only if you want a separate direct-launch entry.
+
+**Name:**
 
 ```text
 Jinteia
 ```
 
-Runner:
+**Runner:**
 
 ```text
 Wine
@@ -198,19 +269,19 @@ Wine
 
 ### Game options
 
-Executable:
+**Executable:**
 
 ```text
 /PATH/TO/JINTEIA/Nihor2 - Chronicles of Jinteia - Release.exe
 ```
 
-Wine prefix:
+**Wine prefix:**
 
 ```text
 /home/YOUR-USERNAME/Games/jinteia-prefix
 ```
 
-Working directory:
+**Working directory:**
 
 ```text
 /PATH/TO/JINTEIA/
@@ -226,69 +297,23 @@ Jinteia-Proton-0.1
 
 Save the entry.
 
-</details>
-
----
-
-<details>
-<summary><strong>6. Install Microsoft Edge WebView2 Runtime</strong></summary>
-
-The Jinteia patcher requires **Microsoft Edge WebView2 Runtime x64**.
-
-Download the current **Microsoft Edge WebView2 Evergreen Runtime x64** from Microsoft.
-
-It must be installed into the same prefix used by both Jinteia entries:
-
-```text
-~/Games/jinteia-prefix
-```
-
-### Recommended method
-
-1. Select **Jinteia Patcher** in Lutris
-2. Open the Wine menu for that game
-3. Choose **Run EXE inside Wine prefix**
-4. Select the WebView2 x64 installer
-5. Complete the installation
-
-If Wine asks to install **Wine Mono**:
-
-```text
-Choose Install
-```
-
-Do **not** cancel the Mono installation.
-
-After WebView2 has been installed, fully restart Lutris.
+> If you create this optional second entry, it must use the **same prefix** and the **same Jinteia-Proton runner** as the patcher.
 
 </details>
 
 ---
 
-## 7. First launch
+## Final configuration
 
-Start the **Jinteia Patcher** first.
-
-The first launch may take longer because Proton can initialize:
-
-- the prefix
-- DXVK
-- shader caches
-- WebView2 related components
-
-If the patcher closes on the very first launch, wait for the process to finish and try once more.
-
-After the patcher works, start:
+### Recommended
 
 ```text
-Jinteia
+Jinteia Patcher
+├── Runner: Jinteia-Proton-0.1
+└── Prefix: ~/Games/jinteia-prefix
 ```
 
-If both applications start correctly, the setup is complete.
-
----
-
-## Required final configuration
+### Optional direct client entry
 
 ```text
 Jinteia Patcher
@@ -300,8 +325,6 @@ Jinteia
 └── Prefix: ~/Games/jinteia-prefix
 ```
 
-> Do not use separate prefixes for the patcher and client.
-
 ---
 
 <details>
@@ -309,7 +332,7 @@ Jinteia
 
 ### Jinteia-Proton-0.1 does not appear in Lutris
 
-Fully close and restart Lutris.
+Fully close Lutris and start it again.
 
 For a regular Lutris installation, check:
 
@@ -323,7 +346,24 @@ For Flatpak Lutris:
 ls ~/.var/app/net.lutris.Lutris/data/lutris/runners/wine/Jinteia-Proton-0.1/proton
 ```
 
-If the file exists, Lutris should detect the runner after a restart.
+If the file exists, the runner was installed successfully.
+
+---
+
+### Permission denied when starting the installer
+
+Run:
+
+```bash
+chmod +x Jinteia-Proton-0.1-installer.run
+./Jinteia-Proton-0.1-installer.run
+```
+
+Or launch it through Bash:
+
+```bash
+bash Jinteia-Proton-0.1-installer.run
+```
 
 ---
 
@@ -336,8 +376,6 @@ Make sure WebView2 was installed into:
 ```text
 ~/Games/jinteia-prefix
 ```
-
-Also verify that both the patcher and client use this exact same prefix.
 
 ---
 
@@ -358,6 +396,19 @@ Do not select Cancel.
 The first run can initialize the prefix, DXVK and WebView2 components.
 
 Try launching the patcher again after the first process has fully exited.
+
+---
+
+### Direct client launch does not work
+
+Make sure the optional client entry uses exactly the same:
+
+```text
+Runner: Jinteia-Proton-0.1
+Prefix: ~/Games/jinteia-prefix
+```
+
+as the patcher.
 
 ---
 
@@ -397,28 +448,24 @@ No Jinteia security checks are disabled or bypassed.
 <details>
 <summary><strong>Known test status</strong></summary>
 
-Confirmed working:
+### Confirmed working
 
-```text
-CachyOS
-Lutris
-UMU
-Jinteia-Proton-0.1
-Microsoft Edge WebView2 Runtime x64
-Jinteia Patcher
-Jinteia Client
-Shared prefix
-```
+- **CachyOS**
+- **Linux Mint 22.3**
+- Lutris
+- UMU
+- Jinteia-Proton-0.1
+- Microsoft Edge WebView2 Runtime x64
+- Jinteia Patcher
+- Jinteia Client
+- Launching Jinteia through the patcher
+- Optional direct client launch using the same prefix
 
-Not yet fully verified:
+### Not yet fully verified
 
-```text
-SteamOS
-Linux Mint
-Flatpak Lutris
-Other distributions
-Fresh systems with no previous Jinteia prefix
-```
+- SteamOS
+- Flatpak Lutris
+- Other Linux distributions
 
 Feedback and additional distribution tests are welcome.
 
@@ -440,5 +487,3 @@ Jinteia, GE-Proton, Wine, Valve, Microsoft and Lutris are separate projects and 
 This repository provides a Linux compatibility setup and is not an official Jinteia Linux release.
 
 </details>
-
----
