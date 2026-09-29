@@ -6,8 +6,12 @@ This setup uses the **Jinteia Patcher** as the main entry point.
 The patcher can be used both to **download/install the game** and to **launch an existing installation**.
 
 ---
+This fix allows you to run Metin2 (Jinteia) on Linux using a Wine environment.
 
+Check out the releases for more information!
+---
 
+# Important
 
 The Jinteia client executable itself is **not modified**.
 
@@ -26,7 +30,7 @@ No Jinteia security checks are disabled or bypassed.
 - **Linux Mint 22.3**
 - Lutris
 - UMU
-- Jinteia-Proton-0.1
+- Jinteia-Proton-0.1, 0.2
 - Microsoft Edge WebView2 Runtime x64
 - Jinteia Patcher
 - Jinteia Client
