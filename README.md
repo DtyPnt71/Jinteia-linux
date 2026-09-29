@@ -6,7 +6,7 @@ This setup uses the **Jinteia Patcher** as the main entry point.
 The patcher can be used both to **download/install the game** and to **launch an existing installation**.
 
 ---
-This fix allows you to run Metin2 (Jinteia) on Linux using a Wine environment.
+This fix allows you running Metin2 (Jinteia) on Linux using a Wine environment.
 
 Check out the releases for more information!
 ---
